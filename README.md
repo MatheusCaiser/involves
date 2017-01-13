@@ -18,8 +18,10 @@ Como usar
 5.	Escolha o nome de preferência e pressione finish
 
 - Para executar o .jar
+
 1. Na pasta onde se encotra o .jar certifique do **pré-requisito**
-2. Execute no Prompt de comando a linha   
+2. Execute no Prompt de comando a linha
+   
 `$ java -jar involves.jar`
 
 Comandos disponíveis
