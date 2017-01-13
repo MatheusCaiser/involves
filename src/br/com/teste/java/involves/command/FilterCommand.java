@@ -23,6 +23,7 @@ import br.com.teste.java.involves.console.Console;
  *
  */
 public class FilterCommand implements Command {
+	private Result result;
 
 	public void execute(CSVReader reader, String... args) {
 		String property;
@@ -41,6 +42,7 @@ public class FilterCommand implements Command {
 			if (!reader.hasProperty(property)) {
 				Console.error("A propriedade '" + property + "' não existe no arquivo");
 				Console.out(reader.headersToString());
+				this.result = Result.noHasProperty;
 			} else {
 				ArrayList<String> filterDistinctLines = reader.getLinesWith(property, value);
 				String[] header = reader.getHeader();
@@ -57,15 +59,22 @@ public class FilterCommand implements Command {
 					for (String currentLine : filterDistinctLines) {
 						Console.out(currentLine + "\n");
 					}
+					this.result = Result.filter;
 				} else {
 					Console.info("Não foi encontrado nenhum valor em '" + property + "' como '" + value + "'");
+					this.result = Result.valueNotFoundInProperty;
 				}
 			}
 		} else {
 			Console.out(CommandEnum.filter.getDescription());
 			Console.error("Você deve informar um valor para filtrar");
+			this.result = Result.filterWithoutProperty;
 		}
 
+	}
+
+	public Result getResult() {
+		return result;
 	}
 
 }
